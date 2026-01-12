@@ -1,0 +1,31 @@
+<idea-plugin>
+    <id>dev.dumper.dumper</id>
+    <name>Dumper</name>
+    <version>1.0.0</version>
+    <vendor>lewa1141</vendor>
+
+    <description><![CDATA[
+    It just copies all project files into clipboard<br>
+  ]]></description>
+
+    <change-notes><![CDATA[
+    <ul>
+      <li>Initial release</li>
+    </ul>
+  ]]></change-notes>
+
+    <idea-version since-build="241" until-build="241.*"/>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <actions>
+        <action id="dev.dumper.CopyProjectToClipboardAction"
+                class="dev.dumper.CopyProjectToClipboardAction"
+                text="Copy Project Files to Clipboard"
+                description="Copies all project files into clipboard in ==== path ==== format">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <!-- optional -->
+            <!-- <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt shift C"/> -->
+        </action>
+    </actions>
+</idea-plugin>

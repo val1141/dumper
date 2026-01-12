@@ -8,7 +8,6 @@ import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VfsUtilCore
 import com.intellij.openapi.vfs.VirtualFile
 import java.awt.datatransfer.StringSelection
-import java.nio.charset.StandardCharsets
 import java.nio.file.FileSystems
 import java.nio.file.PathMatcher
 import java.util.Locale
@@ -44,13 +43,16 @@ class CopyProjectToClipboardAction : AnAction() {
         val files = collectTextFiles(root, matchers)
 
         val sb = StringBuilder()
-        for (vf in files) {
+        for ((i, vf) in files.withIndex()) {
             val rel = VfsUtilCore.getRelativePath(vf, root, '/') ?: continue
             val text = runCatching { VfsUtilCore.loadText(vf) }.getOrElse { "" }
 
             sb.append("==== ").append(rel).append(" ====\n")
             sb.append(text)
-            sb.append("\n\n")
+
+            if (!text.endsWith("\n")) sb.append("\n")
+
+            if (i != files.lastIndex) sb.append("\n")
         }
 
         CopyPasteManager.getInstance().setContents(StringSelection(sb.toString()))
